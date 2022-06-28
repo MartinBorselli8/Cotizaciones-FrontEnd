@@ -8,6 +8,7 @@ a.navbar-brand {
 }
 
 /* Provide sufficient contrast against white background */
+
 a {
   color: #0366d6;
 }
@@ -60,6 +61,9 @@ html {
 
 body {
   /* Margin bottom by footer height */
+  background-image: url("/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   margin-bottom: 60px;
 }
 .footer {
