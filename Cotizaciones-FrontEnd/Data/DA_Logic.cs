@@ -24,7 +24,7 @@ namespace Cotizaciones_FrontEnd.Data
             using (SqlConnection conexion = new SqlConnection("workstation id=CotizacionesDB.mssql.somee.com;packet size=4096;user id=MartinBorselli8_SQLLogin_1;pwd=tu9hec91r2;data source=CotizacionesDB.mssql.somee.com;persist security info=False;initial catalog=CotizacionesDB"))
             {
 
-                string query = "select UserName, [Password], FechaElimina from dbo.[User]";
+                string query = "select UserName, [Password] from dbo.[User]";
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -39,7 +39,6 @@ namespace Cotizaciones_FrontEnd.Data
                         {
                             UserName = dr["UserName"].ToString(),
                             Password = dr["Password"].ToString()
-
                         };
                         usuarios.Add(usuario);
                     }

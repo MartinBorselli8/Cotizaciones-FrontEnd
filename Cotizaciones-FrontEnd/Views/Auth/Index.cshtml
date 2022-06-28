@@ -1,43 +1,41 @@
-﻿@model User
+﻿
 @{
     Layout = null;
 }
 
-<!DOCTYPE html>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-</head>
+<!------ Include the above in your HEAD tag ---------->
+
 <body>
-
-    @*------ GOOGLEAR ====> form bootstrap 5 ----------------*@
-
-    <div class="row mt-5">
-        <div class="col-sm-4 offset-sm-4">
-
-            <form asp-controller="Auth" asp-action="Index" method="post">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nombre De Usuario.</label>
-                    <input type="text" class="form-control" asp-for="UserName">
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" asp-controller="Auth" asp-action="Index" method="post">
+                            <h3 class="text-center text-info">Iniciar Sesion</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Nombre de Usuario:</label><br>
+                                <input type="text" name="UserName" id="UserName" class="form-control" placeholder="Ingrese su nombre de usuario...">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="password" name="Password" id="Password" class="form-control" placeholder="Ingrese su contraseña...">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Iniciar Sesion.">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a asp-controller="Auth" asp-action="NewUser" class="text-info">¿Sos nuevo? Registrate acá</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" asp-for="Password">
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Iniciar Sessión</button>
-                <button type="submit" class="btn btn-info">Registrarse</button>
-            </form>
-
-
+            </div>
         </div>
     </div>
-
-
-
 </body>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</html>

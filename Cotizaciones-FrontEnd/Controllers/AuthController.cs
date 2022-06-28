@@ -53,5 +53,10 @@ namespace Cotizaciones_FrontEnd.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult NewUser()
+        {
+            return View();
+        }
     }
 }
