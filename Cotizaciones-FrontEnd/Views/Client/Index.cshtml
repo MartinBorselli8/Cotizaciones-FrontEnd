@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+@{
+	ViewData["Title"] = "Clientes";
+}
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"></script>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+
+
+<html>
+
+<head>
+	<!-- PARA OCULTAR FILTRO -->
+	<style type="text/css">
+		#divFiltro {
+			display: none;
+		}
+	</style>
+	<script src="~/js/Client/Client.js"></script>
+</head>
+
+<body>
+
+
+<a type="submit" class="btn btn-success float-right" asp-area="" asp-controller="Client" asp-action="  ">Cargar un cliente nuevo</a>
+<br>
+<h3>Buscar Cliente</h3>
+
+<div class="col-xl-3">
+	<button class="btn btn-primary mb-2" type="button" id="Filter" onclick="showFilter();">Filtro</button>
+</div>
+
+<div id="divFiltro"> 
+
+	<div class="row">
+	  <div class="col-xs-3" style="margin: 10px">
+		  <label for="exampleFormControlInput1">Nombre del cliente:</label>
+		  <input  type="text" class="form-control" id="Name" aria-describedby="emailHelp" placeholder="Ingrese un nombre">
+	  </div>
+
+	  <div class="col-xs-3" style="margin: 10px">
+		  <label for="exampleFormControlInput1">Apellido del cliente:</label>
+		  <input  type="text" class="form-control" id="LastName" aria-describedby="emailHelp" placeholder="Ingrese un apellido">
+	  </div>
+
+	  <div class="col-xs-3" style="margin: 10px">
+		<label for="exampleFormControlImput1">Dni del cliente:</label>
+		<input  type="number" class="form-control" id="Dni" aria-describedby="emailHelp" placeholder="Ingrese un DNI">
+	  </div>
+
+	</div>
+
+	<div class = "row">
+		<div>
+			<button  style="margin: 10px" id="searchButton" type="submit" class="btn btn-primary mb-2" >Buscar</button> 
+		</div>
+
+		<div>
+			<button  style="margin: 10px" id="clearButton" type="submit" class="btn btn-light mb-2" onclick="clearFilter()" >Limpiar Filtro</button> 
+		</div>
+	</div>
+
+</div>
+
+
+<div>
+	<div style="text-align:  right">
+		<button id="Modify" class="btn btn-info"> Modificar Cliente </button>
+		<button id="Edit" class="btn btn-info"> Editar Cliente </button>
+		<button id="Remove" class="btn btn-danger"> Eliminar Cliente </button>
+	</div>
+</div>
+
+<div>
+	<table
+	id="table"
+	data-toggle="table"
+	data-locale="es-AR" @*Idioma español*@
+	data-click-to-select="true"  @*Agrega la columna del checkbox*@
+	data-single-select="true"  @*Permite seleccionar una fila*@ >
+
+	<thead>
+		<tr>
+		<th id="checkbox" data-field="state" data-checkbox="true" ></th>
+		<th data-field="Id">ID</th>
+		<th data-field="Name">Nombre</th>
+		<th data-field="LastName">Dni</th>
+		<th data-field="Dni">Telefono</th>
+		</tr>
+	</thead>
+
+
+	</table>
+
+	<div id="show_paginator"></div>
+
+</div>
+
+
+<div class="row">
+		<div class="col-xs-1">
+			<div id="form-CantRegistros" class="form-group">
+				<label for="exampleFormControlSelect1">Mostrar</label>
+				<select id="CantRegistros" required type="text" class="form-control" id="exampleFormControlSelect1">
+					<option value=5> 5</option>
+					<option value=10> 10</option>
+					<option value=15> 15</option>
+					<option value=20> 20</option>
+			  </select>
+			  <label for="exampleFormControlSelect1"> registros </label>
+		  </div>
+	  </div>
+</div>
+
+
+
+</body>
+
+
+</html>
