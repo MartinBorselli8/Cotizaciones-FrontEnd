@@ -1,4 +1,5 @@
 ﻿using Cotizaciones_FrontEnd.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cotizaciones_FrontEnd.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly ILogger<ProductsController> _logger;
