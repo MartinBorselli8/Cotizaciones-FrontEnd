@@ -6,6 +6,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="~/js/Auth/NewUser.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <!------ Include the above in your HEAD tag ---------->
 <body>
@@ -21,8 +22,12 @@
                             <input type="text" name="UserName" id="UserName" class="form-control" placeholder="Ingrese su nombre de usuario...">
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-info">Password:</label><br>
-                            <input type="text" name="Password" id="Password" class="form-control" placeholder="Ingrese su contraseña...">
+                            <label for="password" class="text-info">Contraseña:</label><br>
+                            <input type="password" name="Password" id="Password" class="form-control" placeholder="Ingrese su contraseña...">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-info">Repita su contraseña:</label><br>
+                            <input type="password" name="PasswordVerification" id="Password" class="form-control" placeholder="Repita su contraseña...">
                         </div>
                         <div class="form-group">
                             <button id="btnSummit" type="submit" onclick="RegisterNewUser()" name="btnSubmit" class="btn btn-info btn-md">Confirmar</button>

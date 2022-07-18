@@ -40,6 +40,7 @@ namespace Cotizaciones_FrontEnd.Controllers
             }
             else
             {
+                ViewBag.Message= "ERROR.";
                 return View();
             }
 

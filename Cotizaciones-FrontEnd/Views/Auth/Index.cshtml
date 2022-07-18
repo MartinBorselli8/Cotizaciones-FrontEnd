@@ -2,10 +2,14 @@
 @{
     Layout = null;
 }
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/js/Auth/Index.js"></script>
+</head>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
 <!------ Include the above in your HEAD tag ---------->
 
@@ -23,7 +27,7 @@
                                 <input type="text" name="UserName" id="UserName" class="form-control" placeholder="Ingrese su nombre de usuario...">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="text-info">Password:</label><br>
+                                <label for="password" class="text-info">Contraseña:</label><br>
                                 <input type="password" name="Password" id="Password" class="form-control" placeholder="Ingrese su contraseña...">
                             </div>
                             <div class="form-group">
@@ -32,6 +36,15 @@
                             <div id="register-link" class="text-right">
                                 <a asp-controller="Auth" asp-action="NewUser" class="text-info">¿Sos nuevo? Registrate acá</a>
                             </div>
+
+                            @if (ViewBag.Message != null)
+                            {
+                                <script type="text/javascript">
+
+                                    showAlert()
+                                </script>
+
+                            }
                         </form>
                     </div>
                 </div>

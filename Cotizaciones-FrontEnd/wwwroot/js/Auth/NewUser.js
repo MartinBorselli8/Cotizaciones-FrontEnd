@@ -1,24 +1,36 @@
 ﻿$("#btnSummit").on("click", RegisterNewUser);
-
 function RegisterNewUser() {
 
-    debugger;
-    const UserName = $("#UserName").val();
-    const Password = $("#Password").val();
-    let data = { UserName, Password }
+    var isValidPassword = PasswordVerification();
+
+    if (isValidPassword) {
+        const UserName = $("#UserName").val();
+        const Password = $("#Password").val();
+        let data = { UserName, Password }
 
 
-    $.ajax({
-        url: "https://localhost:44379/api/Auth",
-        type: 'POST',
-        data:
-            JSON.stringify(data),
-        contentType: "application/json",
-    }).done(function (respuesta) {
-        debugger;
-        
-        setTimeout(function () { location.href = "Index", "Auth" }, 1000);
-    }).fail((respuesta) => mostrarAlertas(respuesta));
+        $.ajax({
+            url: "https://localhost:44379/api/Auth",
+            type: 'POST',
+            data:
+                JSON.stringify(data),
+            contentType: "application/json",
+        }).done(function (respuesta) {
+            setTimeout(function () { location.href = "Index", "Auth" }, 1000);
+        }).fail((respuesta) => mostrarAlertas(respuesta));
+    } else {
+        swal("Oops!", "¡Las contraseñas no son idénticas!", "error");
+    }
+    
+}
+
+
+function PasswordVerification() {
+    if ($("#Password").val() == $("#PasswordVerification").val()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //const mostrarAlertas = (respuesta) => {
