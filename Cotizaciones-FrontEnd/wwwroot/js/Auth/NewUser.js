@@ -1,6 +1,6 @@
 ﻿$("#btnSummit").on("click", RegisterNewUser);
 function RegisterNewUser() {
-
+    debugger;
     var isValidPassword = PasswordVerification();
 
     if (isValidPassword) {
@@ -17,7 +17,7 @@ function RegisterNewUser() {
             contentType: "application/json",
         }).done(function (respuesta) {
             setTimeout(function () { location.href = "Index", "Auth" }, 1000);
-        }).fail((respuesta) => mostrarAlertas(respuesta));
+        })
     } else {
         swal("Oops!", "¡Las contraseñas no son idénticas!", "error");
     }
