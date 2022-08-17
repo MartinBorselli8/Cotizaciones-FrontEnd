@@ -9,22 +9,22 @@ namespace Cotizaciones_FrontEnd.Data
 {
     public class DA_Logic
     {
-        public User ValidateUser(string _userName, string _password)
+        public Users ValidateUser(string _userName, string _password)
         {
-            List<User> users = getUsers();
+            List<Users> users = getUsers();
             return users.Where(item => item.UserName == _userName && item.Password == _password).FirstOrDefault();
             //return users.Where(item => item.UserName == _userName && item.Password == _password && item.FechaElimina != null).FirstOrDefault();
 
         }
 
-        public List<User> getUsers()
+        public List<Users> getUsers()
         {
-            List<User> usuarios = new List<User>();
+            List<Users> usuarios = new List<Users>();
 
             using (SqlConnection conexion = new SqlConnection("workstation id=CotizacionesDB.mssql.somee.com;packet size=4096;user id=MartinBorselli8_SQLLogin_1;pwd=tu9hec91r2;data source=CotizacionesDB.mssql.somee.com;persist security info=False;initial catalog=CotizacionesDB"))
             {
 
-                string query = "select UserName, [Password] from dbo.[User]";
+                string query = "select UserName, [Password] from dbo.[Users]";
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -35,7 +35,7 @@ namespace Cotizaciones_FrontEnd.Data
 
                     while (dr.Read())
                     {
-                        User usuario = new User()
+                        Users usuario = new Users()
                         {
                             UserName = dr["UserName"].ToString(),
                             Password = dr["Password"].ToString()

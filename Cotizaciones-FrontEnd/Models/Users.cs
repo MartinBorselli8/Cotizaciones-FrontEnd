@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cotizaciones_FrontEnd.Models
 {
-    public class User
+    public class Users
     {
         public string UserName { get; set; }
         public string Password { get; set; }

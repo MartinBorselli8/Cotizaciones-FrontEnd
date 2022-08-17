@@ -18,7 +18,7 @@ namespace Cotizaciones_FrontEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Models.User _user)
+        public async Task<IActionResult> Index(Models.Users _user)
         {
             DA_Logic _da_User = new DA_Logic();
 
