@@ -1,9 +1,123 @@
-﻿@{
-    ViewData["Title"] = "Products";
+﻿<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Quotes";
     Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">COTIZACIONES</h1>
-    <p> Aqui se mostraran las cotizaciones </p>
-</div>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableexport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+
+<html>
+
+<head>
+    <!-- PARA OCULTAR FILTRO -->
+    <style type="text/css">
+        #divFiltro {
+            display: none;
+        }
+    </style>
+    <script src="~/js/Quotes/Index.js"></script>
+</head>
+
+<body>
+
+
+    <a type="submit" class="btn btn-success float-right" asp-area="" asp-controller="Quotes" asp-action="  ">Crear una nueva cotizacion</a>
+    <br>
+    <h3>Buscar Cotización</h3>
+
+    <div class="col-xl-3">
+        <button class="btn btn-primary mb-2" type="button" id="Filter" onclick="showFilter();">Filtro</button>
+    </div>
+
+    <div id="divFiltro">
+
+        <div class="row">
+            <div class="col-xs-3" style="margin: 10px">
+                <label for="exampleFormControlInput1">Numero de Cotizacion: </label>
+                <input type="text" class="form-control" id="IdQuote" aria-describedby="emailHelp" placeholder="Ingrese un numero">
+            </div>
+
+            <div class="col-xs-3" style="margin: 10px">
+                <label>Cliente: </label>
+                <select class="form-control" id='SelectClients'>
+                    <option value="0"></option>
+                </select>
+            </div>
+
+            <div class="col-xs-3" style="margin: 10px">
+                <label for="exampleFormControlImput1">Fecha desde: </label>
+                <input type="date" class="form-control" id="DateFrom" aria-describedby="emailHelp">
+            </div>
+
+            <div class="col-xs-3" style="margin: 10px">
+                <label for="exampleFormControlImput1">Fecha Hasta: </label>
+                <input type="date" class="form-control" id="DateTo" aria-describedby="emailHelp">
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <button style="margin: 10px" id="searchButton" type="submit" class="btn btn-primary mb-2" onclick="getQuotes(0)">Buscar</button>
+            </div>
+
+            <div>
+                <button style="margin: 10px" id="clearButton" type="submit" class="btn btn-light mb-2" onclick="clearFilter()">Limpiar Filtro</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    @*<div>
+        <div style="text-align:  right">
+            <button id="Modify" class="btn btn-info"> Modificar Cotizacion </button>
+            <button id="Remove" class="btn btn-danger"> Eliminar Cotizacion </button>
+        </div>
+    </div>*@
+
+    <div>
+        <table id="tabla" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Fecha de creacion</th>
+                    <th scope="col">Fecha de Vencimiento</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-tabla">
+            </tbody>
+        </table>
+        <div id="show_paginator"></div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-1">
+            <div id="form-CantRegistros" class="form-group">
+                <label for="exampleFormControlSelect1">Mostrar</label>
+                <select id="CantRegistros" required type="text" class="form-control" id="exampleFormControlSelect1">
+                    <option value=5> 5</option>
+                    <option value=10> 10</option>
+                    <option value=15> 15</option>
+                    <option value=20> 20</option>
+                </select>
+                <label for="exampleFormControlSelect1"> registros </label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
