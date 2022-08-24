@@ -2,9 +2,6 @@
     debugger;
     getClientsForSelect(newOptions);
     getQuotes(0);
-    $('#remove').prop('disabled', true)
-    $('#edit').prop('disabled', true)
-    $('#show').prop('disabled', true)
 });
 
 
@@ -59,19 +56,98 @@ function renderTable(value) {
         debugger;
         $("#cuerpo-tabla").append(`<tr>        
                 <th scope="row">${item.id}</th>
-                 <td>${item.idClient}</td>
+                 <td>${item.client}</td>
                  <td>${item.createDate.toString().split('T')[0]}</td>
                  <td>${item.expirationDate.toString().split('T')[0]}</td>
                  <td>${item.price}</td>
                  <td>${item.condition}</td>
                 <td>
-                <button onclick="eliminar(${value.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
-                    <a id="btnEditar"  class="btn btn-info" href="/Cliente/Editar?id=${item.id}" >Editar</a>
+                <a id="btnEditar"  class="btn btn-info" href="/Quotessss/Editar?id=${item.id}" >Editar</a>
+                <button onclick="ConfirmQuote(${item.id}, '${item.condition}');" id="btnConfirmQuote" class="btn btn-success">Confirmar</a>
+                <button onclick="QuestionDeleteQuote(${item.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
+                
                </td>
                 </tr>`);
     });
     
 }
+
+function ConfirmQuote(id, condition) {
+    debugger;
+    if (condition == 'Pendiente') {
+        $.ajax({
+            method: 'put',
+            url: 'https://localhost:44379/api/Quotes/ConfirmQuote?Id=' + id,
+            success: function (response) {
+                debugger;
+                if (response.status == true) {
+                    Swal.fire(
+                        '¡Confirmado!',
+                        'La cotizacion se confirmo con éxito.',
+                        'success'
+                    )
+                    cleanTable();
+                    getQuotes(0);
+                } else {
+                    Swal.fire(
+                        '¡Error!',
+                        'La cotizacion ya se encontraba confirmada.',
+                        'error'
+                    )
+                }
+
+            }
+        })
+    } else if (condition == 'Confirmado') {
+        Swal.fire(
+            '¡Error!',
+            'La cotizacion ya se encontraba confirmada.',
+            'error'
+        )
+    } else if (condition == 'Vencido') {
+        Swal.fire(
+            '¡Ooops!',
+            'La cotizacion esta vencida.',
+            'info'
+        )
+    }
+
+    
+}
+
+
+function QuestionDeleteQuote(id) {
+    Swal.fire({
+        title: '¿Estas seguro de eliminar esta Cotización?',
+        text: "No es posible recuperarla!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            DeleteQuote(id);
+        }
+    })
+}
+
+
+
+
+function DeleteQuote(id) {
+    $.ajax({
+        method: 'Delete',
+        url: 'https://localhost:44379/api/Quotes/?Id=' + id,
+        success: function (response) {
+            debugger;
+            cleanTable();
+            getQuotes(0);
+        }
+    })
+}
+
 
 function getQuotes(page) {
     const IdQuote = $('#IdQuote').val()
@@ -89,7 +165,7 @@ function getQuotes(page) {
             renderTable(response.quotes);
         }
     })
-};
+}
 
 
 function cleanTable() {

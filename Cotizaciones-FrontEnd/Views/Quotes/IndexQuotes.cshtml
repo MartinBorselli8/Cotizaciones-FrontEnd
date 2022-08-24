@@ -7,13 +7,14 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/tableexport.jquery.plugin/tableexport.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+<script src="sweetalert2.all.min.js"></script>
 
 <html>
 
@@ -30,7 +31,7 @@
 <body>
 
 
-    <a type="submit" class="btn btn-success float-right" asp-area="" asp-controller="Quotes" asp-action="  ">Crear una nueva cotizacion</a>
+    <a type="submit" class="btn btn-success float-right" asp-area="" asp-controller="Quotes" asp-action="NewQuote">Crear una nueva cotizacion</a>
     <br>
     <h3>Buscar Cotización</h3>
 
@@ -78,11 +79,11 @@
 
 
     @*<div>
-        <div style="text-align:  right">
-            <button id="Modify" class="btn btn-info"> Modificar Cotizacion </button>
-            <button id="Remove" class="btn btn-danger"> Eliminar Cotizacion </button>
-        </div>
-    </div>*@
+            <div style="text-align:  right">
+                <button id="Modify" class="btn btn-info"> Modificar Cotizacion </button>
+                <button id="Remove" class="btn btn-danger"> Eliminar Cotizacion </button>
+            </div>
+        </div>*@
 
     <div>
         <table id="tabla" class="table">
@@ -105,19 +106,19 @@
     </div>
 
 
-    <div class="row">
-        <div class="col-xs-1">
-            <div id="form-CantRegistros" class="form-group">
-                <label for="exampleFormControlSelect1">Mostrar</label>
-                <select id="CantRegistros" required type="text" class="form-control" id="exampleFormControlSelect1">
-                    <option value=5> 5</option>
-                    <option value=10> 10</option>
-                    <option value=15> 15</option>
-                    <option value=20> 20</option>
-                </select>
-                <label for="exampleFormControlSelect1"> registros </label>
+    @*<div class="row">
+            <div class="col-xs-1">
+                <div id="form-CantRegistros" class="form-group">
+                    <label for="exampleFormControlSelect1">Mostrar</label>
+                    <select id="CantRegistros" required type="text" class="form-control" id="exampleFormControlSelect1">
+                        <option value=5> 5</option>
+                        <option value=10> 10</option>
+                        <option value=15> 15</option>
+                        <option value=20> 20</option>
+                    </select>
+                    <label for="exampleFormControlSelect1"> registros </label>
+                </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 </body>
 </html>
