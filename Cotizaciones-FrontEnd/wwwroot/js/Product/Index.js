@@ -1,16 +1,16 @@
 ﻿// Paginado funcion
 
-$('#show_paginator').bootpag({
+/*$('#show_paginator').bootpag({
 }).on('page', function (event, num) {
     debugger;
     obtenerFichas(num - 1);
 });
-
+*/
 
 var SeMuestraElFiltro;
 
 function showFilter() {
-    debugger;
+    
     if (SeMuestraElFiltro) {
         document.getElementById('divFiltro').style.display = 'none';
         SeMuestraElFiltro = false;
@@ -35,6 +35,7 @@ function clearFilter() {
 $(document).ready(function () {
     debugger;
     SeMuestraElFiltro = false;
+    getProduct(0);
 });
 
 function renderTable(value) {
@@ -56,19 +57,28 @@ function renderTable(value) {
 }
 
 function getProduct(page) {
-    const IdProduct = $('#IdProduct').val()
-    const Description = ($('#Description').val())
-    const UnitPrice = ($('#UnitPrice').val()).toString()
     
+   // const Description = ($('#Description').val())
+   // const UnitPrice = $('#UnitPrice').val()
+    debugger;
 
     $.ajax({
         method: 'get',
-        url: 'https://localhost:44379/api/Product?Id=' + IdProduct + '&Description=' + Description + 'UnitPrice=' + UnitPrice,
+        url: 'https://localhost:44379/api/Product', 
         //data: { IdQuote, DateTo, DateFrom },
         //dataType: "json",
+        
         success: function (response) {
+            debugger;
             cleanTable();
-            renderTable(response.product);
+            renderTable(response.products);
         }
     })
 };
+
+function cleanTable() {
+    var table = document.getElementById("tabla");
+    while (table.rows.length > 1) {
+        table.deleteRow(1);
+    }
+}
