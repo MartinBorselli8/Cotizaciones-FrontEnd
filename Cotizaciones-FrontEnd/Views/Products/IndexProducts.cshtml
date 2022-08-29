@@ -1,9 +1,110 @@
-﻿@{
-    ViewData["Title"] = "Products";
+﻿<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Productos";
     Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">PRODUCTOS</h1>
-    <p>Aqui se mostraran todos los productos</p>
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableexport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+
+
+<html>
+
+<head>
+	<!-- PARA OCULTAR FILTRO -->
+	<style type="text/css">
+		#divFiltro {
+			display: none;
+		}
+	</style>
+	<script src="~/js/Product/Index.js"></script>
+</head>
+
+<body>
+
+
+<a type="submit" class="btn btn-success float-right" asp-area="" asp-controller="Product" asp-action="  ">Cargar un producto nuevo</a>
+<br>
+<h3>Buscar Producto</h3>
+
+<div class="col-xl-3">
+	<button class="btn btn-primary mb-2" type="button" id="Filter" onclick="showFilter();">Filtro</button>
 </div>
+
+<div id="divFiltro"> 
+
+	<div class="row">
+	  <div class="col-xs-3" style="margin: 10px">
+		  <label for="exampleFormControlInput1">Nombre del producto:</label>
+		  <input  type="text" class="form-control" id="Description" aria-describedby="emailHelp" placeholder="Ingrese un nombre">
+	  </div>
+
+	  <div class="col-xs-3" style="margin: 10px">
+		  <label for="exampleFormControlInput1">Precio unitario del producto:</label>
+		  <input  type="number" class="form-control" id="UnitPrice" aria-describedby="emailHelp" placeholder="Ingrese un precio unitario">
+	  </div>
+	  	
+	</div>
+
+	<div class = "row">
+		<div>
+			<button  style="margin: 10px" id="searchButton" type="submit" class="btn btn-primary mb-2" >Buscar</button> 
+		</div>
+
+		<div>
+			<button  style="margin: 10px" id="clearButton" type="submit" class="btn btn-light mb-2" onclick="clearFilter()" >Limpiar Filtro</button> 
+		</div>
+	</div>
+
+</div>
+
+<div>
+        <table id="tabla" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Precio Unitario</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="cuerpo-tabla">
+            </tbody>
+        </table>
+        <div id="show_paginator"></div>
+
+    </div>
+
+
+
+<div class="row">
+		<div class="col-xs-1">
+			<div id="form-CantRegistros" class="form-group">
+				<label for="exampleFormControlSelect1">Mostrar</label>
+				<select id="CantRegistros" required type="text" class="form-control" id="exampleFormControlSelect1">
+					<option value=5> 5</option>
+					<option value=10> 10</option>
+					<option value=15> 15</option>
+					<option value=20> 20</option>
+			  </select>
+			  <label for="exampleFormControlSelect1"> registros </label>
+		  </div>
+	  </div>
+</div>
+
+
+
+</body>
+
+
+</html>
