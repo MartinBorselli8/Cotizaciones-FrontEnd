@@ -10,8 +10,15 @@ namespace Cotizaciones_FrontEnd.Controllers
         {
             return View();
         }
-
-
+        public IActionResult NewClient()
+        {
+            return View();
+        }
+        public IActionResult EditClient(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
 
     }
 }

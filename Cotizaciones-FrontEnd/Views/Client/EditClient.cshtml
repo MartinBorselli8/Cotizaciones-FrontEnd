@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Edit Client";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableexport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+<script src="sweetalert2.all.min.js"></script>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Client</title>
+    <script src="~/js/Client/EditClient.js"></script>
+</head>
+<body>
+    <button id="btnSubmit" type="submit" class="btn btn-primary float-right" asp-area=""  onclick="editClients(0)">Confirmar</button>
+    <h2>Editar Cliente</h2>
+    <hr>
+
+    <div class="row">
+	  <div class="col-xs-3" style="margin: 10px">
+		  <label for="exampleFormControlInput1">Nombre del cliente:</label>
+		  <input  type="text" class="form-control" id="NameClient" aria-describedby="emailHelp" placeholder="Ingrese un nombre">
+	  </div>
+
+	  <div class="col-xs-3" style="margin: 10px">
+		  <label for="exampleFormControlInput1">Apellido del cliente:</label>
+		  <input  type="text" class="form-control" id="LastNameClient" aria-describedby="emailHelp" placeholder="Ingrese un apellido">
+	  </div>
+
+	  <div class="col-xs-3" style="margin: 10px">
+		<label for="exampleFormControlImput1">Dni del cliente:</label>
+		<input  type="number" class="form-control" id="DniClient" aria-describedby="emailHelp" placeholder="Ingrese un DNI">
+	  </div>
+
+	  <div class="col-xs-3" style="margin: 10px">
+		<label for="exampleFormControlImput1">Telefono del cliente:</label>
+		<input  type="number" class="form-control" id="PhoneClient" aria-describedby="emailHelp" placeholder="Ingrese un numero de telefono">
+	  </div>
+
+	  <div class="col-xs-3" style="margin: 10px">
+		<label for="exampleFormControlImput1">Email del cliente:</label>
+		<input  type="text" class="form-control" id="EmailClient" aria-describedby="emailHelp" placeholder="Ingrese un Email">
+	  </div>
+
+
+	</div>
+
+
+</body>
+</html>
+
+@section scripts{
+    <script>
+	function editClients(page) {
+    const NameClient = ($('#NameClient').val()).toString()
+    const LastNameClient = ($('#LastNameClient').val()).toString()
+    const DniClient = $('#DniClient').val()
+    const PhoneClient = $('#PhoneClient').val()
+    const EmailClient = $('#EmailClient').val()
+
+    $.ajax({
+        method: 'put',
+        url: 'https://localhost:44379/api/Client?Id= ' + @ViewBag.Id  + '&Name=' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient + '&Phone=' + PhoneClient + '&Email=' + EmailClient ,
+
+        success: function (response) {
+            if (response.fueModificado == true) {
+                Swal.fire(
+                    '¡Genial!',
+                    'El cliente se modifico con éxito.',
+                    'success'
+                )
+                setTimeout(function () { window.location.href = "/Client/Index"; }, 5000);
+            }
+
+        }
+    })
+};
+</script>
+
+}
+
+ 
