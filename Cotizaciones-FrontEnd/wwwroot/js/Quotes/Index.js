@@ -1,23 +1,27 @@
 ﻿$(document).ready(function () {
-    debugger;
-    getClientsForSelect(newOptions);
+    getClientsForSelect();
     getQuotes(0);
-    $('#remove').prop('disabled', true)
-    $('#edit').prop('disabled', true)
-    $('#show').prop('disabled', true)
+    
 });
 
 
-const newOptions = [{ id: 1, name: 'Prueba' }, { id: 2, name: 'option2' }, { id: 3, name: 'option2' }];
+//const newOptions = [{ id: 1, name: 'Prueba' }, { id: 2, name: 'option2' }, { id: 3, name: 'option2' }];
 
-function getClientsForSelect(list) {
+function getClientsForSelect() {
     const select = document.getElementById('SelectClients');
 
-    list.forEach(e => {
-        const option = document.createElement('option');
-        option.text = e.name;
-        option.value = e.id;
-        select.appendChild(option);
+    $.ajax({
+        method: 'Get',
+        url: 'https://localhost:44379/api/Client/',
+        success: function (response) {
+            debugger;
+            response.clients.forEach(e => {
+                const option = document.createElement('option');
+                option.text = e.name + ' ' + e.lastName;
+                option.value = e.id;
+                select.appendChild(option);
+            })
+        }
     })
 }
 
@@ -38,7 +42,6 @@ function clearFilter() {
 var SeMuestraElFiltro;
 
 function showFilter() {
-    debugger;
     if (SeMuestraElFiltro) {
         document.getElementById('divFiltro').style.display = 'none';
         SeMuestraElFiltro = false;
@@ -56,22 +59,98 @@ function hideFilter() {
 function renderTable(value) {
     cleanTable(0);
     $.each(value, (index, item) => {
-        debugger;
         $("#cuerpo-tabla").append(`<tr>        
                 <th scope="row">${item.id}</th>
-                 <td>${item.idClient}</td>
+                 <td>${item.client}</td>
                  <td>${item.createDate.toString().split('T')[0]}</td>
                  <td>${item.expirationDate.toString().split('T')[0]}</td>
                  <td>${item.price}</td>
                  <td>${item.condition}</td>
                 <td>
-                <button onclick="eliminar(${value.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
-                    <a id="btnEditar"  class="btn btn-info" href="/Cliente/Editar?id=${item.id}" >Editar</a>
+                <a id="btnEditar"  class="btn btn-info" href="/Quotes/EditQuote?id=${item.id}" >Editar</a>
+                <button onclick="ConfirmQuote(${item.id}, '${item.condition}');" id="btnConfirmQuote" class="btn btn-success">Confirmar</a>
+                <button onclick="QuestionDeleteQuote(${item.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
+                
                </td>
                 </tr>`);
     });
     
 }
+
+function ConfirmQuote(id, condition) {
+    if (condition == 'Pendiente') {
+        $.ajax({
+            method: 'put',
+            url: 'https://localhost:44379/api/Quotes/ConfirmQuote?Id=' + id,
+            success: function (response) {
+                if (response.status == true) {
+                    Swal.fire(
+                        '¡Confirmado!',
+                        'La cotizacion se confirmo con éxito.',
+                        'success'
+                    )
+                    cleanTable();
+                    getQuotes(0);
+                } else {
+                    Swal.fire(
+                        '¡Error!',
+                        'La cotizacion ya se encontraba confirmada.',
+                        'error'
+                    )
+                }
+
+            }
+        })
+    } else if (condition == 'Confirmado') {
+        Swal.fire(
+            '¡Error!',
+            'La cotizacion ya se encontraba confirmada.',
+            'error'
+        )
+    } else if (condition == 'Vencido') {
+        Swal.fire(
+            '¡Ooops!',
+            'La cotizacion esta vencida.',
+            'info'
+        )
+    }
+
+    
+}
+
+
+function QuestionDeleteQuote(id) {
+    Swal.fire({
+        title: '¿Estas seguro de eliminar esta Cotización?',
+        text: "No es posible recuperarla!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            DeleteQuote(id);
+        }
+    })
+}
+
+
+
+
+function DeleteQuote(id) {
+    $.ajax({
+        method: 'Delete',
+        url: 'https://localhost:44379/api/Quotes/?Id=' + id,
+        success: function (response) {
+            debugger;
+            cleanTable();
+            getQuotes(0);
+        }
+    })
+}
+
 
 function getQuotes(page) {
     const IdQuote = $('#IdQuote').val()
@@ -89,8 +168,11 @@ function getQuotes(page) {
             renderTable(response.quotes);
         }
     })
-};
+}
 
+function editQuote(Id) {
+    setTimeout(function () { window.location.href = "/Quotes/EditQuote?Id=" + Id; }, 5000);
+}
 
 function cleanTable() {
     var table = document.getElementById("tabla");

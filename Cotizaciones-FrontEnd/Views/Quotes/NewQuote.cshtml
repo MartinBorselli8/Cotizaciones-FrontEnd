@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+@{
+    ViewData["Title"] = "New Quote";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableexport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+<script src="sweetalert2.all.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+<link rel="stylesheet" href="~/css/estilos.css">
+<title>Ventana Emergente Animada</title>
+<script src="~/js/Quotes/NewQuote.js"></script>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>New Quote</title>
+    
+
+</head>
+<body>
+    <button id="btnSubmit" type="submit" class="btn btn-primary float-right" onclick=confirmQuote()>Confirmar</button>
+    <h2>Nueva cotizacion</h2>
+    <hr>
+    <div class="row">
+        <div class="col-xs-3" style="margin: 10px">
+            <label>Seleccione el nombre del cliente: </label>
+            <select class="form-control" id='SelectClients'>
+                <option value="0"></option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        
+            <div>
+                <div class="col-xs-3" style="margin: 10px">
+                    <label>Seleccione un producto: </label>
+                    <select class="form-control" id='SelectProduct' required>
+                        <option value="0"></option>
+                    </select>
+                </div>
+                <div class="col-xs-3" style="margin: 10px">
+                    <label>Seleccione la cantidad deseada:</label>
+                    <input type="text" name="Amount" id="Amount" required>
+                    <button id="btnPlusProduct" type="button" class="btn btn-success" onclick="CreateQuoteProduct()">+</button>
+                </div>
+
+            </div>
+        
+    </div>
+        
+    <div>
+        <table id="tableProductsSelected" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad Seleccionada</th>
+                    <th scope="col">Precio unitario</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="body-tableProductsSelected">
+            </tbody>
+        </table>
+        @*<div id="show_paginator"></div>*@
+
+    </div>
+
+    <div class="overlay" id="overlay">
+        <div class="popup" id="popup">
+            <a id="btn-cerrar-popup" class="btn-cerrar-popup" onclick="closeEditQuoteProduct()"><i class="fas fa-times"></i></a>
+            <h3>¿Deseas cambiar la cantidad?</h3>
+            <h4>Indica la cantidad deseada.</h4>
+           
+                <div class="col-xs-3">
+                    <input type="number" id="newAmount" class="form-control"  placeholder="Cantidad">
+                <button id="btnSubmit" type="submit" class="btn btn-primary" onclick=editQuoteProduct()>Confirmar</button>
+                <button id="btnCancel" type="button" class="btn btn-danger" onclick="closeEditQuoteProduct()">Cancelar</button>
+                </div>
+                
+        </div>
+    </div>
+</body>
+</html>
