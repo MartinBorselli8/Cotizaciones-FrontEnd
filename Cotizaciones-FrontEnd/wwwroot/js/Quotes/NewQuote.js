@@ -13,7 +13,7 @@ function getProductsForSelect() {
     const select = document.getElementById('SelectProduct');
     $.ajax({
         method: 'Get',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Product/',
+        url: 'https://localhost:44379/api/Product/',
         success: function (response) {
             response.products.forEach(e => {
                 const option = document.createElement('option');
@@ -30,7 +30,7 @@ function confirmQuote() {
     const IdClient = $('#SelectClients').val();
     $.ajax({
         method: 'Put',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes?IdClient='+ IdClient,
+        url: 'https://localhost:44379/api/Quotes?IdClient='+ IdClient,
         success: function (response) {
             if (response.status == true) {
                 Swal.fire(
@@ -58,7 +58,7 @@ function getClientsForSelect() {
 
     $.ajax({
         method: 'Get',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Client/',
+        url: 'https://localhost:44379/api/Client/',
         success: function (response) {
             response.clients.forEach(e => {
                 const option = document.createElement('option');
@@ -97,7 +97,7 @@ function CreateQuoteProduct() {
         if (Amount > 0) {
             $.ajax({
                 method: 'Post',
-                url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes/postQuotesProducts?Amount=' + Amount + '&IdProduct=' + ProductId,
+                url: 'https://localhost:44379/api/Quotes/postQuotesProducts?Amount=' + Amount + '&IdProduct=' + ProductId,
                 success: function (response) {
                     $('#Amount').val(0)
                     $('#SelectProduct').val(0)
@@ -141,7 +141,7 @@ function QuestionDeleteQuoteProduct(id) {
 function DeleteQuoteProduct(id) {
     $.ajax({
         method: 'Delete',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes/deleteQuotesProducts?Id=' + id,
+        url: 'https://localhost:44379/api/Quotes/deleteQuotesProducts?Id=' + id,
         success: function (response) {
             if (response.status == true) {
                 cleanTable();
@@ -155,7 +155,7 @@ function DeleteQuoteProduct(id) {
 function getQuotesProducts() {
     $.ajax({
         method: 'get',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes/getQuotesProductsForCreateQuote',
+        url: 'https://localhost:44379/api/Quotes/getQuotesProductsForCreateQuote',
         
         success: function (response) {
             cleanTable();
@@ -188,7 +188,7 @@ function editQuoteProduct() {
    
     $.ajax({
         method: 'Put',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes/editQuoteProduct?Id=' + QuoteProducIdToEdit + '&NewAmount='+ NewAmount,
+        url: 'https://localhost:44379/api/Quotes/editQuoteProduct?Id=' + QuoteProducIdToEdit + '&NewAmount='+ NewAmount,
 
         success: function (response) {
             if (response.status) {

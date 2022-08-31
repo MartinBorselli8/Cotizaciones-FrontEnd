@@ -68,7 +68,7 @@
     {
          $.ajax({
         method: 'get',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Client/getClientById?Id= ' +@ViewBag.Id ,
+        url: 'https://localhost:44379/api/Client/getClientById?Id= ' +@ViewBag.Id ,
 
         success: function (response) 
         {
@@ -95,7 +95,7 @@
 
         $.ajax({
             method: 'put',
-                url: 'https://cotizaciones-backend.herokuapp.com/api/Client?Id= ' + @ViewBag.Id  + '&Name=' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient + '&Phone=' + PhoneClient + '&Email=' + EmailClient,
+                url: 'https://localhost:44379/api/Client?Id= ' + @ViewBag.Id  + '&Name=' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient + '&Phone=' + PhoneClient + '&Email=' + EmailClient,
 
             success: function (response) 
             {

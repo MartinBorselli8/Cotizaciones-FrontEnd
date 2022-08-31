@@ -15,7 +15,7 @@ function addClients(page) {
 
     $.ajax({
         method: 'post',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Client?Name= ' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient + '&Phone=' + PhoneClient + '&Email=' + EmailClient ,
+        url: 'https://localhost:44379/api/Client?Name= ' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient + '&Phone=' + PhoneClient + '&Email=' + EmailClient ,
 
         success: function (response) {
             if (response.fueCreado == true) {

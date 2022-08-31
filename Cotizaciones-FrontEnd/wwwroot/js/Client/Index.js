@@ -16,7 +16,7 @@ function getClients(page) {
 
     $.ajax({
         method: 'get',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Client?Name= ' + NameClient + '&LastName=' + LastNameClient ,
+        url: 'https://localhost:44379/api/Client?Name= ' + NameClient + '&LastName=' + LastNameClient ,
 
         success: function (response) {
             cleanTable();
@@ -49,7 +49,7 @@ function QuestionDeleteClient(id) {
 function DeleteClient(id) {
     $.ajax({
         method: 'Delete',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Client/?Id=' + id,
+        url: 'https://localhost:44379/api/Client/?Id=' + id,
         success: function (response) {
             cleanTable();
             getClients(0);

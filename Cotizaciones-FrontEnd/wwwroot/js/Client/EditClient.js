@@ -18,7 +18,7 @@ function editClients(page) {
 
     $.ajax({
         method: 'put',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Client?Id= ' + @ViewBag.Id  + '&Name=' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient + '&Phone=' + PhoneClient + '&Email=' + EmailClient ,
+        url: 'https://localhost:44379/api/Client?Id= ' + @ViewBag.Id  + '&Name=' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient + '&Phone=' + PhoneClient + '&Email=' + EmailClient ,
 
         success: function (response) {
             if (response.fueModificado == true) {

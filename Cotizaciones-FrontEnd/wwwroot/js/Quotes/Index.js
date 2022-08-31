@@ -12,7 +12,7 @@ function getClientsForSelect() {
 
     $.ajax({
         method: 'Get',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Client/',
+        url: 'https://localhost:44379/api/Client/',
         success: function (response) {
             debugger;
             response.clients.forEach(e => {
@@ -81,7 +81,7 @@ function ConfirmQuote(id, condition) {
     if (condition == 'Pendiente') {
         $.ajax({
             method: 'put',
-            url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes/ConfirmQuote?Id=' + id,
+            url: 'https://localhost:44379/api/Quotes/ConfirmQuote?Id=' + id,
             success: function (response) {
                 if (response.status == true) {
                     Swal.fire(
@@ -142,7 +142,7 @@ function QuestionDeleteQuote(id) {
 function DeleteQuote(id) {
     $.ajax({
         method: 'Delete',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes/?Id=' + id,
+        url: 'https://localhost:44379/api/Quotes/?Id=' + id,
         success: function (response) {
             debugger;
             cleanTable();
@@ -160,7 +160,7 @@ function getQuotes(page) {
 
     $.ajax({
         method: 'get',
-        url: 'https://cotizaciones-backend.herokuapp.com/api/Quotes?Id=' + IdQuote + '&DateTo=' + DateTo + '&DateFrom=' + DateFrom + '&IdClient=' + IdClient,
+        url: 'https://localhost:44379/api/Quotes?Id=' + IdQuote + '&DateTo=' + DateTo + '&DateFrom=' + DateFrom + '&IdClient=' + IdClient,
         //data: { IdQuote, DateTo, DateFrom },
         //dataType: "json",
         success: function (response) {
