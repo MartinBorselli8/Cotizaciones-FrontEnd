@@ -10,13 +10,13 @@ $(document).ready(function () {
 /* FUNCION DE OBTENER CLIENTES */
 
 function getClients(page) {
-    const NameClient = ($('#NameClient').val()).toString()
-    const LastNameClient = ($('#LastNameClient').val()).toString()
+    const NameClient = $('#NameClient').val()
+    const LastNameClient = $('#LastNameClient').val()
     const DniClient = $('#DniClient').val()
-
+    debugger;
     $.ajax({
         method: 'get',
-        url: 'https://localhost:44379/api/Client?Name= ' + NameClient + '&LastName=' + LastNameClient ,
+        url: 'https://localhost:44379/api/Client?Name=' + NameClient + '&LastName=' + LastNameClient + '&Dni=' + DniClient,
 
         success: function (response) {
             cleanTable();

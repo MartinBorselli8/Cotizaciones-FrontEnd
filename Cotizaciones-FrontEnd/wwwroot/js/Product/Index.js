@@ -26,8 +26,9 @@ function hideFilter() {
 }
 
 function clearFilter() {
-    $('#Description').val("");
-    $('#UnitPrice').val("");
+    cleanTable();
+    $('#IdProduct').val("");
+    getProduct(0);
 
 }
 
@@ -58,13 +59,13 @@ function renderTable(value) {
 
 function getProduct(page) {
 
-    // const Description = ($('#Description').val())
-    // const UnitPrice = $('#UnitPrice').val()
+    const Id = ($('#IdProduct').val())
+    
     debugger;
 
     $.ajax({
         method: 'get',
-        url: 'https://localhost:44379/api/Product',
+        url: 'https://localhost:44379/api/Product?Id='+ Id,
         //data: { IdQuote, DateTo, DateFrom },
         //dataType: "json",
 
