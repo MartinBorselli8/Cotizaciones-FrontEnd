@@ -10,7 +10,7 @@ function RegisterNewUser() {
 
 
         $.ajax({
-            url: "https://localhost:44379/api/Auth",
+            url: "https://cotizaciones-backend.herokuapp.com/api/Auth",
             type: 'POST',
             data:
                 JSON.stringify(data),
