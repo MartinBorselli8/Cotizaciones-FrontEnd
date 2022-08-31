@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    debugger;
     addClients()
     $('#remove').prop('disabled', true)
     $('#edit').prop('disabled', true)
@@ -37,7 +36,6 @@ function addClients(page) {
 function renderTable(value) {
     cleanTable(0);
     $.each(value, (index, item) => {
-        debugger;
         $("#cuerpo-tabla").append(`<tr>        
                  <th scope="row">${item.id}</th>
                  <td>${item.name}</td>

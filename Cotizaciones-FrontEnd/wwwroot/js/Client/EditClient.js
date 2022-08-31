@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+/*
+ $(document).ready(function () {
     debugger;
     editClients(0)
     
@@ -31,3 +33,4 @@ function editClients(page) {
         }
     })
 };
+*/

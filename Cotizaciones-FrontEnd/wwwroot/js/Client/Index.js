@@ -1,6 +1,5 @@
 ﻿
 $(document).ready(function () {
-    debugger;
     getClients(0);
     DeleteClient();
     $('#remove').prop('disabled', true)
@@ -52,7 +51,6 @@ function DeleteClient(id) {
         method: 'Delete',
         url: 'https://localhost:44379/api/Client/?Id=' + id,
         success: function (response) {
-            debugger;
             cleanTable();
             getClients(0);
         }
@@ -73,7 +71,6 @@ function cleanTable() {
 function renderTable(value) {
     cleanTable(0);
     $.each(value, (index, item) => {
-        debugger;
         $("#cuerpo-tabla").append(`<tr>        
                  <th scope="row">${item.id}</th>
                  <td>${item.name}</td>
@@ -95,7 +92,6 @@ function renderTable(value) {
 var SeMuestraElFiltro;
 
 function showFilter() {
-    debugger;
     if (SeMuestraElFiltro) {
         document.getElementById('divFiltro').style.display = 'none';
         SeMuestraElFiltro = false;
