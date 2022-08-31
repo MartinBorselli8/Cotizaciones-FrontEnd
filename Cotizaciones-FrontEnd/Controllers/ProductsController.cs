@@ -24,8 +24,17 @@ namespace Cotizaciones_FrontEnd.Controllers
         {
             return View();
         }
+        public IActionResult NewProduct()
+        {
+            return View();
+        }
+        public IActionResult EditProduct(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
 
-      
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
