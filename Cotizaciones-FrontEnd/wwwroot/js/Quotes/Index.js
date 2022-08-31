@@ -1,20 +1,27 @@
 ﻿$(document).ready(function () {
-    debugger;
-    getClientsForSelect(newOptions);
+    getClientsForSelect();
     getQuotes(0);
+    
 });
 
 
-const newOptions = [{ id: 1, name: 'Prueba' }, { id: 2, name: 'option2' }, { id: 3, name: 'option2' }];
+//const newOptions = [{ id: 1, name: 'Prueba' }, { id: 2, name: 'option2' }, { id: 3, name: 'option2' }];
 
-function getClientsForSelect(list) {
+function getClientsForSelect() {
     const select = document.getElementById('SelectClients');
 
-    list.forEach(e => {
-        const option = document.createElement('option');
-        option.text = e.name;
-        option.value = e.id;
-        select.appendChild(option);
+    $.ajax({
+        method: 'Get',
+        url: 'https://localhost:44379/api/Client/',
+        success: function (response) {
+            debugger;
+            response.clients.forEach(e => {
+                const option = document.createElement('option');
+                option.text = e.name + ' ' + e.lastName;
+                option.value = e.id;
+                select.appendChild(option);
+            })
+        }
     })
 }
 
@@ -35,7 +42,6 @@ function clearFilter() {
 var SeMuestraElFiltro;
 
 function showFilter() {
-    debugger;
     if (SeMuestraElFiltro) {
         document.getElementById('divFiltro').style.display = 'none';
         SeMuestraElFiltro = false;
@@ -53,7 +59,6 @@ function hideFilter() {
 function renderTable(value) {
     cleanTable(0);
     $.each(value, (index, item) => {
-        debugger;
         $("#cuerpo-tabla").append(`<tr>        
                 <th scope="row">${item.id}</th>
                  <td>${item.client}</td>
@@ -62,7 +67,7 @@ function renderTable(value) {
                  <td>${item.price}</td>
                  <td>${item.condition}</td>
                 <td>
-                <a id="btnEditar"  class="btn btn-info" href="/Quotessss/Editar?id=${item.id}" >Editar</a>
+                <a id="btnEditar"  class="btn btn-info" href="/Quotes/EditQuote?id=${item.id}" >Editar</a>
                 <button onclick="ConfirmQuote(${item.id}, '${item.condition}');" id="btnConfirmQuote" class="btn btn-success">Confirmar</a>
                 <button onclick="QuestionDeleteQuote(${item.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
                 
@@ -73,13 +78,11 @@ function renderTable(value) {
 }
 
 function ConfirmQuote(id, condition) {
-    debugger;
     if (condition == 'Pendiente') {
         $.ajax({
             method: 'put',
             url: 'https://localhost:44379/api/Quotes/ConfirmQuote?Id=' + id,
             success: function (response) {
-                debugger;
                 if (response.status == true) {
                     Swal.fire(
                         '¡Confirmado!',
@@ -167,6 +170,9 @@ function getQuotes(page) {
     })
 }
 
+function editQuote(Id) {
+    setTimeout(function () { window.location.href = "/Quotes/EditQuote?Id=" + Id; }, 5000);
+}
 
 function cleanTable() {
     var table = document.getElementById("tabla");

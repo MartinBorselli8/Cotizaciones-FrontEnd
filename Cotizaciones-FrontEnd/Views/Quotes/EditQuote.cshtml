@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model QuoteId
+<!DOCTYPE html>
 @{
     ViewData["Title"] = "New Quote";
     Layout = "_Layout";
@@ -22,13 +23,13 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 <link rel="stylesheet" href="~/css/estilos.css">
 <title>Ventana Emergente Animada</title>
-<script src="~/js/Quotes/NewQuote.js"></script>
+<script src="~/js/Quotes/EditQuote.js"></script>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>New Quote</title>
-    
+
 
 </head>
 <body>
@@ -44,24 +45,24 @@
         </div>
     </div>
     <div class="row">
-        
-            <div>
-                <div class="col-xs-3" style="margin: 10px">
-                    <label>Seleccione un producto: </label>
-                    <select class="form-control" id='SelectProduct' required>
-                        <option value="0"></option>
-                    </select>
-                </div>
-                <div class="col-xs-3" style="margin: 10px">
-                    <label>Seleccione la cantidad deseada:</label>
-                    <input type="text" name="Amount" id="Amount" required>
-                    <button id="btnPlusProduct" type="button" class="btn btn-success" onclick="CreateQuoteProduct()">+</button>
-                </div>
 
+        <div>
+            <div class="col-xs-3" style="margin: 10px">
+                <label>Seleccione un producto: </label>
+                <select class="form-control" id='SelectProduct' required>
+                    <option value="0"></option>
+                </select>
             </div>
-        
+            <div class="col-xs-3" style="margin: 10px">
+                <label>Seleccione la cantidad deseada:</label>
+                <input type="text" name="Amount" id="Amount" required>
+                <button id="btnPlusProduct" type="button" class="btn btn-success" onclick="CreateQuoteProduct()">+</button>
+            </div>
+
+        </div>
+
     </div>
-        
+
     <div>
         <table id="tableProductsSelected" class="table">
             <thead>
@@ -85,14 +86,26 @@
             <a id="btn-cerrar-popup" class="btn-cerrar-popup" onclick="closeEditQuoteProduct()"><i class="fas fa-times"></i></a>
             <h3>¿Deseas cambiar la cantidad?</h3>
             <h4>Indica la cantidad deseada.</h4>
-           
-                <div class="col-xs-3">
-                    <input type="number" id="newAmount" class="form-control"  placeholder="Cantidad">
+
+            <div class="col-xs-3">
+                <input type="number" id="newAmount" class="form-control" placeholder="Cantidad">
                 <button id="btnSubmit" type="submit" class="btn btn-primary" onclick=editQuoteProduct()>Confirmar</button>
                 <button id="btnCancel" type="button" class="btn btn-danger" onclick="closeEditQuoteProduct()">Cancelar</button>
-                </div>
-                
+            </div>
+
         </div>
     </div>
 </body>
 </html>
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            getClientsForSelect();
+            getProductsForSelect();
+            getQuotesProducts(@ViewBag.Id);
+            SaveId(@ViewBag.Id)
+        });     
+    </script>
+}

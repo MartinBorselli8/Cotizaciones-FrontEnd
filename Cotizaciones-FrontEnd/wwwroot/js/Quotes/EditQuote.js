@@ -1,36 +1,32 @@
-﻿$(document).ready(function () {
-    getClientsForSelect();
-    getProductsForSelect();
-    getQuotesProducts();
-});
-
-function foo() {
-    globalThis.QuoteProducIdToEdit = 0;
+﻿function SaveId(Id) {
+    globalThis.QuoteIdToEdit = Id;
 }
 
 
-function getProductsForSelect() {
-    const select = document.getElementById('SelectProduct');
+
+function getClientsForSelect() {
+    const select = document.getElementById('SelectClients');
+
     $.ajax({
         method: 'Get',
-        url: 'https://localhost:44379/api/Product/',
+        url: 'https://localhost:44379/api/Client/',
         success: function (response) {
-            response.products.forEach(e => {
+            response.clients.forEach(e => {
                 const option = document.createElement('option');
-                option.text = e.description;
+                option.text = e.name + ' ' + e.lastName;
                 option.value = e.id;
                 select.appendChild(option);
             })
         }
     })
-    
 }
+
 
 function confirmQuote() {
     const IdClient = $('#SelectClients').val();
     $.ajax({
         method: 'Put',
-        url: 'https://localhost:44379/api/Quotes?IdClient='+ IdClient,
+        url: 'https://localhost:44379/api/Quotes?IsForEdit=true&IdClient=' + IdClient + '&IdQuote=' + globalThis.QuoteIdToEdit,
         success: function (response) {
             if (response.status == true) {
                 Swal.fire(
@@ -46,63 +42,25 @@ function confirmQuote() {
                     'error'
                 )
             }
-            
+
         }
     })
 }
 
-
-
-function getClientsForSelect() {
-    const select = document.getElementById('SelectClients');
-
-    $.ajax({
-        method: 'Get',
-        url: 'https://localhost:44379/api/Client/',
-        success: function (response) {
-            response.clients.forEach(e => {
-                const option = document.createElement('option');
-                option.text = e.name + ' ' +e.lastName;
-                option.value = e.id;
-                select.appendChild(option);
-            })
-        }
-    })
-    
-}
-
-function renderTable(value) {
-    cleanTable(0);
-    $.each(value, (index, item) => {
-        $("#body-tableProductsSelected").append(`<tr>        
-                <th scope="row">${item.description}</th>
-                 <td>${item.amount}</td>
-                 <td>${item.unitPrice}</td>
-                 <td>${item.total}</td>
-                 
-                <td>
-                <button id="btnEditar"  class="btn btn-info" onclick="editQuoteProductModal(${item.id});">Editar</button>
-                <button onclick="QuestionDeleteQuoteProduct(${item.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
-                
-               </td>
-                </tr>`);
-    });
-
-}
 
 function CreateQuoteProduct() {
     const Amount = parseInt($('#Amount').val());
     const ProductId = $('#SelectProduct').val();
-    if (ProductId > 0 ) {
+    if (ProductId > 0) {
         if (Amount > 0) {
             $.ajax({
                 method: 'Post',
-                url: 'https://localhost:44379/api/Quotes/postQuotesProducts?Amount=' + Amount + '&IdProduct=' + ProductId,
+                url: 'https://localhost:44379/api/Quotes/postQuotesProducts?IsForEdit=true&Amount=' + Amount + '&IdProduct=' + ProductId + '&IdQuote=' + globalThis.QuoteIdToEdit,
                 success: function (response) {
                     $('#Amount').val(0)
                     $('#SelectProduct').val(0)
                     cleanTable();
-                    getQuotesProducts();
+                    getQuotesProducts(globalThis.QuoteIdToEdit);
                 }
             })
         } else {
@@ -118,7 +76,7 @@ function CreateQuoteProduct() {
             'Seleccione un Producto',
             'error'
         )
-    } 
+    }
 }
 
 function QuestionDeleteQuoteProduct(id) {
@@ -145,18 +103,17 @@ function DeleteQuoteProduct(id) {
         success: function (response) {
             if (response.status == true) {
                 cleanTable();
-                getQuotesProducts();
+                getQuotesProducts(globalThis.QuoteIdToEdit);
             }
         }
     })
 }
 
-
-function getQuotesProducts() {
+function getQuotesProducts(id) {
     $.ajax({
-        method: 'get',
-        url: 'https://localhost:44379/api/Quotes/getQuotesProductsForCreateQuote',
-        
+        method: 'Get',
+        url: 'https://localhost:44379/api/Quotes/getQuotesProductsForCreateQuote?IsForEdit=true&IdQuote='+ parseInt(id),
+
         success: function (response) {
             cleanTable();
             renderTable(response.quotesProducts);
@@ -169,6 +126,42 @@ function cleanTable() {
     while (table.rows.length > 1) {
         table.deleteRow(1);
     }
+}
+
+function getProductsForSelect() {
+    const select = document.getElementById('SelectProduct');
+    $.ajax({
+        method: 'Get',
+        url: 'https://localhost:44379/api/Product/',
+        success: function (response) {
+            response.products.forEach(e => {
+                const option = document.createElement('option');
+                option.text = e.description;
+                option.value = e.id;
+                select.appendChild(option);
+            })
+        }
+    })
+
+}
+
+function renderTable(value) {
+    cleanTable(0);
+    $.each(value, (index, item) => {
+        $("#body-tableProductsSelected").append(`<tr>        
+                <th scope="row">${item.description}</th>
+                 <td>${item.amount}</td>
+                 <td>${item.unitPrice}</td>
+                 <td>${item.total}</td>
+                 
+                <td>
+                <button id="btnEditar"  class="btn btn-info" onclick="editQuoteProductModal(${item.id});">Editar</button>
+                <button onclick="QuestionDeleteQuoteProduct(${item.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
+                
+               </td>
+                </tr>`);
+    });
+
 }
 
 
@@ -185,10 +178,10 @@ function editQuoteProductModal(Id) {
 
 function editQuoteProduct() {
     const NewAmount = parseInt($('#newAmount').val());
-   
+
     $.ajax({
         method: 'Put',
-        url: 'https://localhost:44379/api/Quotes/editQuoteProduct?Id=' + QuoteProducIdToEdit + '&NewAmount='+ NewAmount,
+        url: 'https://localhost:44379/api/Quotes/editQuoteProduct?Id=' + QuoteProducIdToEdit + '&NewAmount=' + NewAmount,
 
         success: function (response) {
             if (response.status) {
@@ -199,7 +192,7 @@ function editQuoteProduct() {
                     'success'
                 )
                 cleanTable();
-                getQuotesProducts();
+                getQuotesProducts(globalThis.QuoteIdToEdit);
             }
         }
     })
