@@ -53,8 +53,8 @@
         success: function (response) 
         {
             debugger;
-            $('#Description').val(response.Description);
-            $('#UnitPrice').val(response.UnitPrice);
+            $('#Description').val(response.description);
+            $('#UnitPrice').val(response.unitPrice);
         }
        })
     }
@@ -81,7 +81,7 @@
     };
     $(document).ready(function () 
     {
-    getProductForEdit();
+        getProductForEdit();
     });
     
 </script>
