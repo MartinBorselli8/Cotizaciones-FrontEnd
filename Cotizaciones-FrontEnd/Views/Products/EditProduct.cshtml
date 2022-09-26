@@ -58,9 +58,9 @@
         success: function (response) 
         {
             debugger;
-            $('#Description').val(response.Description);
-            $('#UnitPrice').val(response.UnitPrice);
-            $('#Stock').val(response.Stock);
+            $('#Description').val(response.description);
+            $('#UnitPrice').val(response.unitPrice);
+            $('#Stock').val(response.stock);
         }
        })
     }
@@ -69,6 +69,7 @@
     {
         const Description = ($('#Description').val()).toString()        
         const UnitPrice = $('#UnitPrice').val()
+        const Stock = $('#Stock').val()
         $.ajax({
             method: 'put',
             url: 'https://localhost:44379/api/Product?Id= ' + @ViewBag.Id  + '&Description=' + Description + '&UnitPrice=' + UnitPrice + '&Stock=' + Stock, 
