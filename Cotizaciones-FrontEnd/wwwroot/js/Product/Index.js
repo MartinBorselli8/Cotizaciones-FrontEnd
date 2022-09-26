@@ -46,7 +46,8 @@ function renderTable(value) {
                 <th scope="row">${item.id}</th>
                  <td>${item.description}</td>
                  <td>${item.unitPrice}</td>
-                 
+                 <td>${item.stock}</td>
+
                 <td>
                 <button onclick="QuestionDeleteProduct(${item.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
                     <a id="btnEditar"  class="btn btn-info" href="/Products/EditProduct?id=${item.id}" >Editar</a>
