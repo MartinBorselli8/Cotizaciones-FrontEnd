@@ -37,7 +37,7 @@
     <hr>
     <div class="row">
         <div class="col-xs-3" style="margin: 10px">
-            <label>Seleccione el nombre del cliente: </label>
+            <label>Seleccione el nombre del cliente: </label> <label style="color:red"> (*) </label>
             <select class="form-control" id='SelectClients'>
                 <option value="0"></option>
             </select>
@@ -47,13 +47,13 @@
         
             <div>
                 <div class="col-xs-3" style="margin: 10px">
-                    <label>Seleccione un producto: </label>
+                    <label>Seleccione un producto: </label> <label style="color:red"> (*)</label>
                     <select class="form-control" id='SelectProduct' required>
                         <option value="0"></option>
                     </select>
                 </div>
                 <div class="col-xs-3" style="margin: 10px">
-                    <label>Seleccione la cantidad deseada:</label>
+                    <label>Seleccione la cantidad deseada:</label> <label style="color:red"> (*)</label>
                     <input type="text" name="Amount" id="Amount" required>
                     <button id="btnPlusProduct" type="button" class="btn btn-success" onclick="CreateQuoteProduct()">+</button>
                 </div>
@@ -94,5 +94,7 @@
                 
         </div>
     </div>
+
+    <label style="color:red"> (*) CAMPO OBLIGATORIO</label>
 </body>
 </html>
