@@ -8,7 +8,7 @@ function addClients(page) {
 
     if (NameClient != "") {
         if (LastNameClient != "") {
-            if (DniClient > 0) {
+            if (validateDni(DniClient) == true) {
                 if (validateEmail(EmailClient) == true) {
                     if (validatePhoneNumer(PhoneClient) == true) {
                         $.ajax({
@@ -45,7 +45,7 @@ function addClients(page) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Ingrese un dni',
+                    text: 'Ingrese un dni valido',
                 })
             }
         } else {
@@ -77,6 +77,14 @@ function validatePhoneNumer(phoneNumber) {
 
     var validation = phoneNumbervalidate.test(phoneNumber);
     return validation;
+}
+
+function validateDni(dni) {
+    var dnivalidate = new RegExp(/^\d{8}(?:[-\s]\d{4})?$/);
+
+    var validation = dnivalidate.test(dni);
+    return validation;
+      
 }
 
 
