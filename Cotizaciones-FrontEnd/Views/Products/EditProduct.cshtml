@@ -38,6 +38,11 @@
 		<label for="exampleFormControlImput1">Precio Unitario:</label>
 		<input  type="number" class="form-control" id="UnitPrice" aria-describedby="emailHelp" placeholder="Ingrese el Precio">
 	  </div>
+
+      <div class="col-xs-3" style="margin: 10px">
+		<label for="exampleFormControlImput1">Cantidad:</label>
+		<input  type="number" class="form-control" id="Stock" aria-describedby="emailHelp" placeholder="Ingrese la cantidad">
+	  </div>
 	</div>
 
 </body>
@@ -55,6 +60,7 @@
             debugger;
             $('#Description').val(response.description);
             $('#UnitPrice').val(response.unitPrice);
+            $('#Stock').val(response.stock);
         }
        })
     }
@@ -63,9 +69,10 @@
     {
         const Description = ($('#Description').val()).toString()        
         const UnitPrice = $('#UnitPrice').val()
+        const Stock = $('#Stock').val()
         $.ajax({
             method: 'put',
-            url: 'https://localhost:44379/api/Product?Id= ' + @ViewBag.Id  + '&Description=' + Description + '&UnitPrice=' + UnitPrice,
+            url: 'https://localhost:44379/api/Product?Id= ' + @ViewBag.Id  + '&Description=' + Description + '&UnitPrice=' + UnitPrice + '&Stock=' + Stock, 
             success: function (response) 
             {
                 if (response.fueModificado == true) {

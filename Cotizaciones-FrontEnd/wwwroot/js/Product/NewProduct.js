@@ -2,10 +2,11 @@
 function newProduct() {
     const Description = $("#Description").val()
     const UnitPrice = $("#UnitPrice").val()
-
+    const Stock = $("#Stock").val()
+    debugger;
 
     $.ajax({
-        url: 'https://localhost:44379/api/Product?Description=' + Description + '&UnitPrice=' + UnitPrice,
+        url: 'https://localhost:44379/api/Product?Description=' + Description + '&UnitPrice=' + UnitPrice + '&Stock=' + Stock,
         type: "POST",
         success: function (response) {
             
