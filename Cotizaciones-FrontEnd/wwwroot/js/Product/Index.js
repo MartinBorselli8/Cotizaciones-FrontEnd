@@ -42,7 +42,7 @@ $(document).ready(function () {
 function renderTable(value) {
     cleanTable(0);
     $.each(value, (index, item) => {
-        debugger;
+        //debugger;
         $("#cuerpo-tabla").append(`<tr>        
                 <th scope="row">${item.id}</th>
                  <td>${item.description}</td>
