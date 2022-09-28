@@ -91,34 +91,45 @@ function renderTable(value) {
 }
 
 function CreateQuoteProduct() {
+    const IdClient = $('#SelectClients').val();
     const Amount = parseInt($('#Amount').val());
     const ProductId = $('#SelectProduct').val();
-    if (ProductId > 0 ) {
-        if (Amount > 0) {
-            $.ajax({
-                method: 'Post',
-                url: 'https://localhost:44379/api/Quotes/postQuotesProducts?Amount=' + Amount + '&IdProduct=' + ProductId,
-                success: function (response) {
-                    $('#Amount').val(0)
-                    $('#SelectProduct').val(0)
-                    cleanTable();
-                    getQuotesProducts();
-                }
-            })
+
+    if (IdClient > 0) {
+        if (ProductId > 0) {
+            if (Amount > 0) {
+                $.ajax({
+                    method: 'Post',
+                    url: 'https://localhost:44379/api/Quotes/postQuotesProducts?Amount=' + Amount + '&IdProduct=' + ProductId,
+                    success: function (response) {
+                        $('#Amount').val(0)
+                        $('#SelectProduct').val(0)
+                        cleanTable();
+                        getQuotesProducts();
+                    }
+                })
+            } else {
+                Swal.fire(
+                    '¡Oops!',
+                    'Seleccione una cantidad',
+                    'error'
+                )
+            }
         } else {
             Swal.fire(
                 '¡Oops!',
-                'Seleccione una cantidad',
+                'Seleccione un Producto',
                 'error'
             )
         }
     } else {
         Swal.fire(
             '¡Oops!',
-            'Seleccione un Producto',
+            'Seleccione un Cliente',
             'error'
         )
-    } 
+    }
+ 
 }
 
 function QuestionDeleteQuoteProduct(id) {

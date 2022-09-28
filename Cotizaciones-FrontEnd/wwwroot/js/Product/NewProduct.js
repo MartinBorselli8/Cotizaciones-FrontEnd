@@ -2,9 +2,26 @@
 function newProduct() {
     const Description = $("#Description").val()
     const UnitPrice = $("#UnitPrice").val()
+
+    if (Description != "") {
+        if (UnitPrice > 0) {
     const Stock = $("#Stock").val()
     debugger;
 
+            $.ajax({
+                url: 'https://localhost:44379/api/Product?Description=' + Description + '&UnitPrice=' + UnitPrice,
+                type: "POST",
+                success: function (response) {
+
+                    if (response.fueCreado == true) {
+                        Swal.fire(
+                            '¡Genial!',
+                            'El producto se guardó con éxito.',
+                            'success'
+                        )
+                        setTimeout(function () { window.location.href = "/Products/IndexProducts"; }, 5000);
+                    }
+                }
     $.ajax({
         url: 'https://localhost:44379/api/Product?Description=' + Description + '&UnitPrice=' + UnitPrice + '&Stock=' + Stock,
         type: "POST",
@@ -21,5 +38,21 @@ function newProduct() {
         }
 
 
-    })
+            })
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ingrese un precio unitario',
+            })
+        }
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ingrese una descripcion',
+        })
+    }
+
+
 }
