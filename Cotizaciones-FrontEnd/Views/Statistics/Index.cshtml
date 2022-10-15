@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Clientes";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableexport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+<script src="sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<html>
+
+<head>
+    <h1>ESTADISTICAS</h1>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-xl-6">
+            <h3>Demanda de cada producto</h3>
+            <canvas id="myChart" width="200" height="200"></canvas>
+        </div>
+        <div class="col-xl-6">
+            <h3>Numero de Cotizaciones por estado</h3>
+            <canvas id="myChartPie" width="200" height="200"></canvas>
+        </div>
+    </div>
+    
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                method: 'get',
+                url: 'https://localhost:44379/api/Statitics/getDataForStatitics',
+
+                success: function (response) {
+                    debugger;
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: response.productNames,
+                            datasets: [{
+                                label: ' ',
+                                data: response.productCounts,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                    const ctx2 = document.getElementById('myChartPie').getContext('2d');
+                    const myChartPie = new Chart(ctx2, {
+                        type: 'doughnut',
+                        data: {
+                            labels: response.quoteStates,
+                            datasets: [{
+                                label: 'Numero de Cotizaciones por estado',
+                                data: response.quoteCounts,
+                                backgroundColor: [
+                                    'rgba(0, 255, 0, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 0, 0, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(0, 255, 0, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 0, 0, 1)'
+                                ],
+                                borderWidth: 1,
+                                hoverOffset: 4
+                            }]
+                        }
+                    });
+                        
+                }
+            })
+        });
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+
+</html>
