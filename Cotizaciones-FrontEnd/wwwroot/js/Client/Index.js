@@ -10,6 +10,7 @@ $(document).ready(function () {
 /* FUNCION DE OBTENER CLIENTES */
 
 function getClients(page) {
+    debugger;
     const NameClient = $('#NameClient').val()
     const LastNameClient = $('#LastNameClient').val()
     const DniClient = $('#DniClient').val()
